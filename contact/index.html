@@ -29,8 +29,8 @@
     <meta property="twitter:image" content="https://designedbynicole.co/media/logo/fyr-logo.png">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/media/logo/fyr-logo.png">
-    <link rel="apple-touch-icon" href="/media/logo/fyr-logo.png">
+    <link rel="icon" type="image/png" href="../media/logo/fyr-logo.png">
+    <link rel="apple-touch-icon" href="../media/logo/fyr-logo.png">
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -1226,7 +1226,7 @@
         <nav>
             <div class="logo">
                 <a href="../">
-                    <img src="/media/logo/fyr-logo-transparent.png" alt="Furnish Your Rental Logo">
+                    <img src="../media/logo/fyr-logo-transparent.png" alt="Furnish Your Rental Logo">
                 </a>
             </div>
             <button class="menu-toggle" aria-label="Toggle menu" id="menuToggle">
@@ -1299,7 +1299,7 @@
                     <label for="phone">Phone Number:</label>
                     <div class="phone-input-container">
                         <button type="button" class="country-selector" id="countrySelector" aria-label="Select country code">
-                            <img src="/media/flags/us.svg" alt="US Flag" class="country-flag" id="selectedFlag" onerror="this.style.display='none'">
+                            <img src="../media/flags/us.svg" alt="US Flag" class="country-flag" id="selectedFlag" onerror="this.style.display='none'">
                             <span class="country-code" id="selectedCode">+1</span>
                             <svg class="dropdown-arrow" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1532,7 +1532,7 @@
             
             countryList.innerHTML = filteredCountries.map(country => `
                 <div class="country-item" data-code="${country.code}" data-dial="${country.dialCode}">
-                    <img src="/media/flags/${country.code}.svg" alt="${country.name}" class="country-item-flag" onerror="this.style.display='none'">
+                    <img src="../media/flags/${country.code}.svg" alt="${country.name}" class="country-item-flag" onerror="this.style.display='none'">
                     <span class="country-item-name">${country.name}</span>
                     <span class="country-item-code">${country.dialCode}</span>
                 </div>
@@ -1550,7 +1550,7 @@
 
         // Select a country
         function selectCountry(code, dialCode) {
-            selectedFlag.src = `/media/flags/${code}.svg`;
+            selectedFlag.src = `../media/flags/${code}.svg`;
             selectedFlag.alt = `${code.toUpperCase()} Flag`;
             selectedCode.textContent = dialCode;
             phoneCountryCode.value = dialCode;
