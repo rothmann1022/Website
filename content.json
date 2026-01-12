@@ -1,0 +1,102 @@
+{
+  "site": {
+    "name": "Furnish Your Rental",
+    "tagline": "Your rental property can look like a model home without the price tag. Rent your unit faster by creating an elevated space that potential tenants and your budget will love.",
+    "description": "Transform your rental properties into beautiful, tenant-ready spaces. Professional interior design and styling services that help you rent faster and at better rates. Free consultation available."
+  },
+  "home": {
+    "heroTitle": "Furnish Your Rental",
+    "heroTagline": "Your rental property can look like a model home without the price tag. Rent your unit faster by creating an elevated space that potential tenants and your budget will love.",
+    "heroButton": "See More of Our Work",
+    "aboutNicole": {
+      "title": "About Nicole Rothman",
+      "description": "Nicole Rothman is a professional interior designer specializing in rental property styling and transformation. With a passion for creating beautiful, tenant-ready spaces, Nicole helps property owners rent their units faster and at better rates. Her expertise in combining style with budget-conscious solutions makes her the perfect choice for rental property owners looking to elevate their spaces without breaking the bank."
+    },
+    "rentalSection": {
+      "title": "Has your rental been sitting on the market?",
+      "description": "Unfurnished or under-styled spaces make it harder to rent. Transform your rental property into a space that tenants will love and want to call home. Our professional styling services help you rent faster and at better rates.",
+      "button": "Contact Us Now"
+    },
+    "services": {
+      "title": "Our Services",
+      "subtitle": "Comprehensive rental property styling solutions designed to help you rent faster and at better rates.",
+      "items": [
+        {
+          "title": "Free Consultation",
+          "description": "Start with a complimentary consultation to discuss your rental property needs and how we can help transform your space."
+        },
+        {
+          "title": "Furnishing",
+          "description": "Choose from our comprehensive furnishing options:",
+          "options": [
+            "Full furniture + Décor/Essentials",
+            "Partial furniture + Décor/Essentials",
+            "Décor Only"
+          ]
+        },
+        {
+          "title": "Full Inventory of Pricing",
+          "description": "Complete pricing information for all items from Amazon, making it easy to see costs upfront with full transparency."
+        }
+      ],
+      "ctaButton": "View All Services"
+    },
+    "instagram": {
+      "heading": "Follow Us on Instagram",
+      "handle": "@furnish.your.rental",
+      "url": "https://www.instagram.com/furnish.your.rental/"
+    }
+  },
+  "about": {
+    "title": "About Nicole Rothman",
+    "description": "Learn more about the designer behind Furnish Your Rental and her passion for transforming rental properties.",
+    "content": "Nicole Rothman is a professional interior designer specializing in rental property styling and transformation. With a passion for creating beautiful, tenant-ready spaces, Nicole helps property owners rent their units faster and at better rates. Her expertise in combining style with budget-conscious solutions makes her the perfect choice for rental property owners looking to elevate their spaces without breaking the bank."
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "Comprehensive rental property styling solutions designed to help you rent faster and at better rates. From consultation to full furnishing, we've got you covered.",
+    "items": [
+      {
+        "title": "Free Consultation",
+        "description": "Start with a complimentary consultation to discuss your rental property needs and how we can help transform your space. We'll assess your property, understand your goals, and provide personalized recommendations tailored to your budget and timeline."
+      },
+      {
+        "title": "Furnishing",
+        "description": "Choose from our comprehensive furnishing options to suit your needs and budget:",
+        "options": [
+          "Full furniture + Décor/Essentials - Complete transformation with all furniture, décor, and essential items",
+          "Partial furniture + Décor/Essentials - Select furniture pieces combined with décor and essentials",
+          "Décor Only - Beautiful styling with décor and accessories to enhance your existing space"
+        ]
+      },
+      {
+        "title": "Full Inventory of Pricing",
+        "description": "Complete pricing information for all items from Amazon, making it easy to see costs upfront. We provide detailed pricing breakdowns so you know exactly what you're investing in. All items are sourced from Amazon for convenience and transparency."
+      }
+    ],
+    "cta": {
+      "title": "Ready to Transform Your Rental Property?",
+      "description": "Let's discuss how we can help you rent faster and at better rates.",
+      "button": "Get Started Today"
+    }
+  },
+  "work": {
+    "title": "Our Work",
+    "description": "Explore our portfolio of stunning transformations. See how we've transformed rental properties into beautiful, tenant-ready spaces that rent faster and at better rates.",
+    "pricingNote": "Decor only: 2 bedroom 2 bathroom 1300sq ft = $2500 minimum",
+    "additionalTitle": "Additional Transformations",
+    "additionalDescription": "More beautiful spaces we've created for our clients"
+  },
+  "contact": {
+    "title": "Get In Touch",
+    "description": "Ready to transform your rental property? Fill out the form below and we'll get back to you as soon as possible.",
+    "formTitle": "Contact Us",
+    "email": "Designerdocfl@outlook.com"
+  },
+  "footer": {
+    "description": "Transforming rental properties into beautiful, tenant-ready spaces that rent faster and at better rates.",
+    "designer": "Designed by Charles Russo",
+    "designerUrl": "https://charlierusso.dev/"
+  }
+}
+

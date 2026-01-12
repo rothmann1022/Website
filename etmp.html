@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="x-apple-disable-message-reformatting">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
+  <title>Thank You for Your Inquiry - Furnish Your Rental</title>
+  <style>
+    /* Base resets */
+    html, body { margin:0 !important; padding:0 !important; height:100% !important; width:100% !important; }
+    body { -webkit-text-size-adjust:100%; text-size-adjust:100%; background:#faf9f7; }
+    table, td { border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt; }
+    img { border:0; line-height:100%; vertical-align:middle; -ms-interpolation-mode:bicubic; }
+    a { text-decoration:none; }
+    /* Decorative elements */
+    .decorative-line { 
+      height: 3px; 
+      background: linear-gradient(90deg, transparent 0%, #4ba5b8 50%, transparent 100%);
+      margin: 16px 0;
+    }
+    /* Mobile tweaks */
+    @media screen and (max-width:480px){
+      .wrap{ width:100% !important; }
+      .p-32{ padding:20px 14px !important; }
+      .p-24{ padding:18px 14px !important; }
+      .p-16{ padding:12px !important; }
+      .fz-40{ font-size:28px !important; line-height:1.2 !important; }
+      .fz-20{ font-size:16px !important; }
+      .fz-18{ font-size:16px !important; }
+      .fz-16{ font-size:15px !important; }
+      .btn{ padding:12px 18px !important; display:block !important; }
+    }
+  </style>
+  <!--[if mso]>
+    <style>
+      .serif { font-family: Georgia, serif !important; }
+    </style>
+  <![endif]-->
+</head>
+
+<body style="margin:0; padding:0; background:#faf9f7;">
+  <!-- Preheader (hidden in inbox preview) -->
+  <div style="display:none; max-height:0; overflow:hidden; font-size:1px; line-height:1px; color:#faf9f7; opacity:0;">
+    Thank you for your inquiry, {{from_name}}! We'll be in touch soon about your {{service}} request.
+  </div>
+
+  <!-- Full-width background -->
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#faf9f7" style="background:#faf9f7;">
+    <tr>
+      <td align="center" style="padding:0;">
+
+        <!--[if mso]>
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600"><tr><td>
+        <![endif]-->
+
+        <!-- Fluid container (hybrid) -->
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" class="wrap" style="max-width:600px; width:100%;">
+
+          <!-- Header bar -->
+          <tr>
+            <td align="center" class="p-32 serif" bgcolor="#298a9d" style="padding:40px 24px; background:linear-gradient(135deg, #298a9d 0%, #4ba5b8 100%); color:#ffffff; font-family:Georgia,serif; mso-line-height-rule:exactly; line-height:1.25;">
+              <div class="fz-40" style="font-size:42px; font-weight:300; line-height:1.2; margin:0; color:#ffffff; letter-spacing:3px;">Thank You</div>
+              <div style="height:2px; background:rgba(255,255,255,0.3); margin:20px auto; width:80px;"></div>
+              <div class="fz-20" style="font-size:22px; margin-top:12px; color:#ffffff; font-weight:300; letter-spacing:1px;">Furnish Your Rental</div>
+              <div style="font-size:16px; margin-top:8px; color:rgba(255,255,255,0.9); font-weight:300; font-style:italic;">Rental Property Styling</div>
+            </td>
+          </tr>
+
+          <!-- Main panel -->
+          <tr>
+            <td class="p-24" bgcolor="#ffffff" style="padding:32px 24px; background:#ffffff; border-left:1px solid rgba(41, 138, 157, 0.15); border-right:1px solid rgba(41, 138, 157, 0.15);">
+
+              <!-- Welcome message -->
+              <div style="text-align:center; margin-bottom:32px;">
+                <div class="serif" style="color:#298a9d; font-size:26px; margin:0 0 12px 0; font-weight:400; font-family:Georgia,serif;">Hello {{from_name}},</div>
+                <div style="color:#666; font-size:17px; line-height:1.7; margin:0; max-width:500px; margin-left:auto; margin-right:auto;">
+                  Thank you for reaching out to Furnish Your Rental! We've received your inquiry and are excited to help transform your rental property.
+                </div>
+              </div>
+
+              <div style="height:2px; background:linear-gradient(90deg, transparent 0%, rgba(41, 138, 157, 0.2) 50%, transparent 100%); margin:28px 0;"></div>
+
+              <!-- Inquiry Summary -->
+              <div class="serif" style="color:#298a9d; font-size:20px; margin:0 0 20px 0; font-weight:400; font-family:Georgia,serif; letter-spacing:0.5px;">Your Inquiry Summary</div>
+
+              <!-- Sub box -->
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr>
+                  <td class="p-16" bgcolor="#faf9f7" style="padding:20px; border-left:3px solid #4ba5b8; background:linear-gradient(to right, rgba(75, 165, 184, 0.05) 0%, #faf9f7 100%);">
+                    <p class="fz-16" style="margin:0 0 12px 0; color:#2c2c2c; font-size:16px; line-height:1.8; mso-line-height-rule:exactly;">
+                      <span style="color:#298a9d; font-weight:600;">Name:</span><br>
+                      <span style="color:#1a1a1a; font-size:17px;">{{from_name}}</span>
+                    </p>
+                    <p class="fz-16" style="margin:0 0 12px 0; color:#2c2c2c; font-size:16px; line-height:1.8; mso-line-height-rule:exactly;">
+                      <span style="color:#298a9d; font-weight:600;">Email:</span><br>
+                      <a href="mailto:{{from_email}}" style="color:#298a9d; text-decoration:underline; font-size:17px;">{{from_email}}</a>
+                    </p>
+                    <p class="fz-16" style="margin:0 0 12px 0; color:#2c2c2c; font-size:16px; line-height:1.8; mso-line-height-rule:exactly;">
+                      <span style="color:#298a9d; font-weight:600;">Phone:</span><br>
+                      <span style="color:#1a1a1a; font-size:17px;">{{phone}}</span>
+                    </p>
+                    <p class="fz-16" style="margin:0; color:#2c2c2c; font-size:16px; line-height:1.8; mso-line-height-rule:exactly;">
+                      <span style="color:#298a9d; font-weight:600;">Service:</span><br>
+                      <span style="color:#1a1a1a; font-size:17px;">{{service}}</span>
+                    </p>
+                  </td>
+                </tr>
+              </table>
+
+              <div style="height:2px; background:linear-gradient(90deg, transparent 0%, rgba(41, 138, 157, 0.2) 50%, transparent 100%); margin:24px 0;"></div>
+
+              <!-- Service Details -->
+              <div class="serif" style="color:#298a9d; font-size:20px; margin:0 0 20px 0; font-weight:400; font-family:Georgia,serif; letter-spacing:0.5px;">Project Details</div>
+
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr>
+                  <td class="p-16" bgcolor="#faf9f7" style="padding:20px; border-left:3px solid #4ba5b8; background:linear-gradient(to right, rgba(75, 165, 184, 0.05) 0%, #faf9f7 100%); color:#2c2c2c; font-size:16px; line-height:1.8; mso-line-height-rule:exactly;">
+                    <p class="fz-16" style="margin:0 0 16px 0;">
+                      <span style="color:#298a9d; font-weight:600;">Location:</span><br>
+                      <span style="color:#1a1a1a; font-size:17px;">{{location}}</span>
+                    </p>
+                    <p class="fz-16" style="margin:0 0 12px 0;">
+                      <span style="color:#298a9d; font-weight:600;">Your Message:</span>
+                    </p>
+                    <div style="background:#ffffff; border:1px solid rgba(41, 138, 157, 0.15); padding:16px; color:#2c2c2c; font-family:Arial,sans-serif; line-height:1.7; mso-line-height-rule:exactly; word-wrap:break-word; border-radius:4px;">
+                      {{message}}
+                    </div>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Submitted line -->
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top:24px;">
+                <tr>
+                  <td align="center" class="p-16" bgcolor="rgba(75, 165, 184, 0.08)" style="padding:16px; border-top:2px solid rgba(41, 138, 157, 0.2); background:rgba(75, 165, 184, 0.08);">
+                    <div style="color:#298a9d; font-size:14px; line-height:1.5; mso-line-height-rule:exactly;">
+                      <span style="color:#666;">Submitted:</span> <strong style="color:#298a9d;">{{timestamp}}</strong>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+
+            </td>
+          </tr>
+
+          <!-- Footer bar -->
+          <tr>
+            <td align="center" class="p-24 serif" bgcolor="#298a9d" style="padding:32px 24px; background:linear-gradient(135deg, #298a9d 0%, #4ba5b8 100%); color:#ffffff; font-family:Georgia,serif; line-height:1.6; mso-line-height-rule:exactly;">
+              <div style="margin:0 0 24px 0; font-weight:300; color:#ffffff; font-size:18px; line-height:1.7;">
+                We're excited to help transform your rental property!<br>
+                <span style="font-size:16px; opacity:0.95; margin-top:8px; display:block;">I'll review your inquiry and get back to you within 24-48 hours.</span>
+              </div>
+
+              <div style="height:1px; background:rgba(255,255,255,0.2); margin:28px 0 20px 0; width:100%;"></div>
+
+              <div style="margin:0 0 12px 0; font-size:13px; color:rgba(255,255,255,0.9);"><strong>Contact Us:</strong></div>
+              <div style="color:#ffffff; font-size:15px; margin-bottom:8px;">
+                <a href="mailto:Designerdocfl@outlook.com" style="color:#ffffff; text-decoration:underline;">Designerdocfl@outlook.com</a>
+              </div>
+              <div style="margin-top:16px; font-size:12px; color:rgba(255,255,255,0.85); font-style:italic;">
+                Rental Property Styling • Furnishing & Décor • Consultation Services
+              </div>
+            </td>
+          </tr>
+
+        </table>
+
+        <!--[if mso]>
+        </td></tr></table>
+        <![endif]-->
+
+      </td>
+    </tr>
+  </table>
+
+  <!-- Landmark for screen readers (optional) -->
+  <div role="article" aria-roledescription="email" aria-label="Thank You for Your Inquiry" style="display:none;"></div>
+</body>
+</html>
+

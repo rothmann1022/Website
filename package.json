@@ -1,0 +1,17 @@
+{
+  "name": "designed-by-nicole-website",
+  "version": "1.0.0",
+  "description": "Website for Furnish Your Rental - Rental Property Styling",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "website",
+    "interior-design",
+    "rental-styling"
+  ],
+  "author": "Charles Russo",
+  "license": "ISC"
+}
+
