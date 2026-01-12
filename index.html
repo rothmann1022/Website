@@ -22,7 +22,7 @@
     <meta property="og:url" content="https://designedbynicole.co/">
     <meta property="og:title" content="Furnish Your Rental - Professional Rental Property Styling & Interior Design">
     <meta property="og:description" content="Transform your rental properties into beautiful, tenant-ready spaces. Professional interior design and styling services that help you rent faster and at better rates.">
-    <meta property="og:image" content="https://designedbynicole.co/media/logo/fyr-logo.png">
+    <meta property="og:image" content="https://designedbynicole.co/media/home1.jpeg">
     <meta property="og:site_name" content="Furnish Your Rental">
     
     <!-- Twitter -->
@@ -30,7 +30,7 @@
     <meta property="twitter:url" content="https://designedbynicole.co/">
     <meta property="twitter:title" content="Furnish Your Rental - Professional Rental Property Styling">
     <meta property="twitter:description" content="Transform your rental properties into beautiful, tenant-ready spaces. Professional interior design services.">
-    <meta property="twitter:image" content="https://designedbynicole.co/media/logo/fyr-logo.png">
+    <meta property="twitter:image" content="https://designedbynicole.co/media/home1.jpeg">
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="media/logo/fyr-logo.png">
@@ -52,7 +52,7 @@
       "description": "Professional rental property styling and interior design services",
       "url": "https://designedbynicole.co",
       "logo": "https://designedbynicole.co/media/logo/fyr-logo.png",
-      "image": "https://designedbynicole.co/media/logo/fyr-logo.png",
+      "image": "https://designedbynicole.co/media/home1.jpeg",
       "email": "Designerdocfl@outlook.com",
       "priceRange": "$$",
       "address": {
@@ -2140,7 +2140,7 @@
 
         // Load content from JSON file
         (function() {
-            fetch('content.json')
+            fetch('content.json?v=' + Date.now())
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Failed to load content.json');
