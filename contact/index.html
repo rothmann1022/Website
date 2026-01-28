@@ -518,6 +518,34 @@
             min-height: 150px;
         }
 
+        .spam-warning {
+            margin-top: 0.5rem;
+            padding: 0.75rem 1rem;
+            background: rgba(211, 47, 47, 0.1);
+            border-left: 3px solid #d32f2f;
+            color: #d32f2f;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            animation: fadeInUp 0.3s ease;
+            border-radius: 0;
+        }
+
+        .spam-warning.show {
+            display: block !important;
+        }
+
+        .form-group input.field-spam,
+        .form-group textarea.field-spam {
+            border-color: #d32f2f;
+            background: rgba(211, 47, 47, 0.05);
+        }
+
+        .form-group input.field-spam:focus,
+        .form-group textarea.field-spam:focus {
+            border-color: #d32f2f;
+            box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1);
+        }
+
         .submit-btn {
             width: 100%;
             padding: 1.4rem;
@@ -1286,6 +1314,7 @@
                 <div class="form-group">
                     <label for="name">Your Name:</label>
                     <input type="text" id="name" name="name" required>
+                    <div class="spam-warning" id="nameSpamWarning" style="display: none;"></div>
                 </div>
 
                 <div class="form-group">
@@ -1324,6 +1353,7 @@
                 <div class="form-group">
                     <label for="message">Message (Optional):</label>
                     <textarea id="message" name="message" placeholder="Tell us about your rental property..."></textarea>
+                    <div class="spam-warning" id="messageSpamWarning" style="display: none;"></div>
                 </div>
 
                 <button type="submit" class="submit-btn">Send Inquiry</button>
@@ -1391,6 +1421,233 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script>
+        // Spam Detection Class (integrated from AntiFormSpam methods)
+        class SpamDetector {
+            constructor(options = {}) {
+                this.config = {
+                    entropyThreshold: options.entropyThreshold || 3.5,
+                    minLengthForEntropy: options.minLengthForEntropy || 8,
+                    suspiciousEmailPatterns: options.suspiciousEmailPatterns || [
+                        /^\w+\.\w+\.\d+\.\d+@/,
+                        /\d{4,}@/,
+                        /^[a-z]{1,3}\d+[a-z]{1,3}\d+@/,
+                    ],
+                    spamKeywords: options.spamKeywords || [
+                        'viagra', 'casino', 'lottery', 'winner', 'click here',
+                        'free money', 'urgent', 'act now', 'limited time'
+                    ],
+                    suspiciousPatterns: options.suspiciousPatterns || [
+                        /[A-Z]{5,}/,
+                        /[a-z]{10,}/,
+                        /\d{8,}/,
+                        /[A-Za-z]{15,}/,
+                    ],
+                };
+            }
+
+            calculateEntropy(str) {
+                if (!str || str.length === 0) return 0;
+                const freq = {};
+                for (let char of str) {
+                    freq[char] = (freq[char] || 0) + 1;
+                }
+                let entropy = 0;
+                const length = str.length;
+                for (let char in freq) {
+                    const p = freq[char] / length;
+                    entropy -= p * Math.log2(p);
+                }
+                return entropy;
+            }
+
+            containsActualWords(text) {
+                if (!text) return false;
+                const words = text.toLowerCase()
+                    .replace(/[^\w\s]/g, ' ')
+                    .split(/\s+/)
+                    .filter(w => w.length > 0);
+                if (words.length === 0) return false;
+                const commonWords = [
+                    'the', 'be', 'to', 'of', 'and', 'a', 'in', 'that', 'have', 'i',
+                    'it', 'for', 'not', 'on', 'with', 'he', 'as', 'you', 'do', 'at',
+                    'this', 'but', 'his', 'by', 'from', 'they', 'we', 'say', 'her', 'she',
+                    'or', 'an', 'will', 'my', 'one', 'all', 'would', 'there', 'their',
+                    'what', 'so', 'up', 'out', 'if', 'about', 'who', 'get', 'which', 'go',
+                    'me', 'when', 'make', 'can', 'like', 'time', 'no', 'just', 'him', 'know',
+                    'take', 'people', 'into', 'year', 'your', 'good', 'some', 'could', 'them',
+                    'see', 'other', 'than', 'then', 'now', 'look', 'only', 'come', 'its', 'over',
+                    'think', 'also', 'back', 'after', 'use', 'two', 'how', 'our', 'work', 'first',
+                    'well', 'way', 'even', 'new', 'want', 'because', 'any', 'these', 'give', 'day',
+                    'most', 'us', 'hello', 'hi', 'interested', 'discuss', 'project', 'team', 'services',
+                    'would', 'like', 'learn', 'more', 'about', 'contact', 'information', 'please', 'thank'
+                ];
+                const commonWordCount = words.filter(w => commonWords.includes(w)).length;
+                const wordRatio = commonWordCount / words.length;
+                if (words.length >= 20) {
+                    return wordRatio >= 0.15;
+                } else {
+                    return commonWordCount >= 1;
+                }
+            }
+
+            isRandomString(str, isDescription = false) {
+                if (!str || str.length < this.config.minLengthForEntropy) {
+                    return false;
+                }
+                if (isDescription && this.containsActualWords(str)) {
+                    const entropy = this.calculateEntropy(str);
+                    const threshold = this.config.entropyThreshold + 0.5;
+                    return entropy > threshold;
+                }
+                const entropy = this.calculateEntropy(str);
+                return entropy > this.config.entropyThreshold;
+            }
+
+            isSuspiciousEmail(email) {
+                if (!email) return false;
+                for (let pattern of this.config.suspiciousEmailPatterns) {
+                    if (pattern.test(email)) {
+                        return true;
+                    }
+                }
+                const localPart = email.split('@')[0];
+                if (localPart && this.isRandomString(localPart)) {
+                    return true;
+                }
+                return false;
+            }
+
+            containsSpamKeywords(text) {
+                if (!text) return false;
+                const lowerText = text.toLowerCase();
+                for (let keyword of this.config.spamKeywords) {
+                    if (lowerText.includes(keyword)) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            matchesSuspiciousPatterns(text, isDescription = false) {
+                if (!text) return false;
+                if (isDescription) {
+                    if (this.containsActualWords(text)) {
+                        if (/[a-z\s][A-Z]{6,}/.test(text)) {
+                            return true;
+                        }
+                        if (/[A-Za-z0-9]{30,}/.test(text) && !/\s/.test(text)) {
+                            return true;
+                        }
+                        return false;
+                    }
+                    for (let pattern of this.config.suspiciousPatterns) {
+                        const regex = new RegExp(pattern.source, 'g');
+                        let match;
+                        while ((match = regex.exec(text)) !== null) {
+                            const matchText = match[0];
+                            const matchIndex = match.index;
+                            const before = text[matchIndex - 1];
+                            const after = text[matchIndex + matchText.length];
+                            const beforeIsWordChar = before && /\w/.test(before);
+                            const afterIsWordChar = after && /\w/.test(after);
+                            if (!beforeIsWordChar && !afterIsWordChar) {
+                                return true;
+                            }
+                        }
+                    }
+                    return false;
+                }
+                for (let pattern of this.config.suspiciousPatterns) {
+                    if (pattern.test(text)) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            validateField(fieldName, value, fieldType = 'text') {
+                const issues = [];
+                if (!value || value.trim().length === 0) {
+                    return { valid: true, issues: [] };
+                }
+                const trimmedValue = value.trim();
+                switch (fieldType.toLowerCase()) {
+                    case 'name':
+                        if (this.isRandomString(trimmedValue)) {
+                            issues.push('Name appears to be random characters');
+                        }
+                        if (this.matchesSuspiciousPatterns(trimmedValue)) {
+                            issues.push('Name contains suspicious patterns');
+                        }
+                        break;
+                    case 'email':
+                        if (this.isSuspiciousEmail(trimmedValue)) {
+                            issues.push('Email appears suspicious');
+                        }
+                        break;
+                    case 'description':
+                    case 'message':
+                        if (this.isRandomString(trimmedValue, true)) {
+                            if (!this.containsActualWords(trimmedValue)) {
+                                issues.push('Content appears to be random characters');
+                            }
+                        }
+                        if (this.containsSpamKeywords(trimmedValue)) {
+                            issues.push('Content contains spam keywords');
+                        }
+                        if (this.matchesSuspiciousPatterns(trimmedValue, true)) {
+                            issues.push('Content matches suspicious patterns');
+                        }
+                        break;
+                    case 'text':
+                    default:
+                        if (this.isRandomString(trimmedValue)) {
+                            issues.push('Content appears to be random characters');
+                        }
+                        if (this.containsSpamKeywords(trimmedValue)) {
+                            issues.push('Content contains spam keywords');
+                        }
+                        if (this.matchesSuspiciousPatterns(trimmedValue)) {
+                            issues.push('Content matches suspicious patterns');
+                        }
+                        break;
+                }
+                return {
+                    valid: issues.length === 0,
+                    issues: issues
+                };
+            }
+
+            validateForm(formData) {
+                const results = {
+                    valid: true,
+                    fields: {},
+                    issues: []
+                };
+                for (let fieldName in formData) {
+                    const value = formData[fieldName];
+                    let fieldType = 'text';
+                    const lowerName = fieldName.toLowerCase();
+                    if (lowerName.includes('name')) fieldType = 'name';
+                    else if (lowerName.includes('email')) fieldType = 'email';
+                    else if (lowerName.includes('description') || lowerName.includes('message')) fieldType = 'description';
+                    const validation = this.validateField(fieldName, value, fieldType);
+                    results.fields[fieldName] = validation;
+                    if (!validation.valid) {
+                        results.valid = false;
+                        results.issues.push(...validation.issues.map(issue => `${fieldName}: ${issue}`));
+                    }
+                }
+                return results;
+            }
+        }
+
+        // Initialize spam detector
+        const spamDetector = new SpamDetector({
+            entropyThreshold: 3.5,
+            minLengthForEntropy: 8
+        });
+
         // EmailJS Configuration
         const EMAILJS_CONFIG = {
             publicKey: 'PTKW7yknZ4HEuHjMl',
@@ -1744,6 +2001,80 @@
             return emailRegex.test(email);
         }
 
+        // Real-time spam detection for individual fields
+        function checkFieldForSpam(fieldId, fieldType) {
+            const field = document.getElementById(fieldId);
+            const warningDiv = document.getElementById(fieldId + 'SpamWarning');
+            
+            if (!field || !warningDiv) return;
+            
+            const value = field.value.trim();
+            
+            // Clear previous state
+            field.classList.remove('field-spam');
+            warningDiv.style.display = 'none';
+            warningDiv.classList.remove('show');
+            
+            // Only check if field has content
+            if (value.length === 0) {
+                return;
+            }
+            
+            // Validate the field
+            const validation = spamDetector.validateField(fieldId, value, fieldType);
+            
+            if (!validation.valid && validation.issues.length > 0) {
+                // Show spam warning
+                field.classList.add('field-spam');
+                warningDiv.textContent = 'your answer follows suspicious patterns please check that it is correct';
+                warningDiv.style.display = 'block';
+                warningDiv.classList.add('show');
+            }
+        }
+
+        // Debounce function for real-time detection
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // Setup real-time spam detection listeners
+        function setupRealTimeSpamDetection() {
+            const nameField = document.getElementById('name');
+            const messageField = document.getElementById('message');
+            
+            // Debounced spam check functions
+            const checkNameSpam = debounce(() => checkFieldForSpam('name', 'name'), 500);
+            const checkMessageSpam = debounce(() => checkFieldForSpam('message', 'message'), 500);
+            
+            // Add event listeners
+            if (nameField) {
+                nameField.addEventListener('input', checkNameSpam);
+                nameField.addEventListener('paste', () => setTimeout(checkNameSpam, 100));
+                nameField.addEventListener('blur', checkNameSpam);
+            }
+            
+            if (messageField) {
+                messageField.addEventListener('input', checkMessageSpam);
+                messageField.addEventListener('paste', () => setTimeout(checkMessageSpam, 100));
+                messageField.addEventListener('blur', checkMessageSpam);
+            }
+        }
+
+        // Initialize real-time spam detection when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', setupRealTimeSpamDetection);
+        } else {
+            setupRealTimeSpamDetection();
+        }
+
         // Form submission handler
         async function handleSubmit(event) {
             event.preventDefault();
@@ -1765,6 +2096,25 @@
                 const serviceValue = document.getElementById('service').value;
                 const locationValue = document.getElementById('location').value;
                 const message = document.getElementById('message').value.trim() || 'No message provided';
+                
+                // Spam detection validation (only check name and message)
+                const formData = {
+                    name: name,
+                    message: message
+                };
+                const spamValidation = spamDetector.validateForm(formData);
+                
+                if (!spamValidation.valid) {
+                    // Show spam warning with the specific message requested
+                    showCustomPopup(
+                        'error',
+                        'Suspicious Content Detected',
+                        'your answer follows suspicious patterns please check that it is correct'
+                    );
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalText;
+                    return;
+                }
                 
                 // Enhanced validation
                 if (!name) {
@@ -1855,6 +2205,19 @@
                 // Reset form
                 event.target.reset();
                 selectCountry('us', '+1'); // Reset to default
+                
+                // Clear spam warnings
+                const spamWarnings = document.querySelectorAll('.spam-warning');
+                spamWarnings.forEach(warning => {
+                    warning.style.display = 'none';
+                    warning.classList.remove('show');
+                });
+                
+                // Clear spam field classes
+                const spamFields = document.querySelectorAll('.field-spam');
+                spamFields.forEach(field => {
+                    field.classList.remove('field-spam');
+                });
                 
                 // Show success popup
                 showCustomPopup(
